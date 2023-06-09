@@ -20,6 +20,7 @@ library(ggthemes)
 library(ggrepel)
 library(viridis) #Color map that has been designed to improve readability for readers with common forms of color blindness and/or color vision deficiency
 library(ggtext)
+library(ggfittext)
 
 
 # Initialize empty data frame to store data from Box Office Mojo
@@ -150,18 +151,17 @@ mojo_df <- mojo_df %>%
   mutate(Month = month.name[month(Date)], ordered = TRUE)
 
 # Define the order of months
-level <- c("December", "November","October","September","August","July","June","May","April","March","February","January")
+level <- c("January","February","March","April","May","June","July","August","September","October","November","December")
 
-# Group by month and year, summarise the total releases
-  group_by(Month, Year) %>% 
-  summarize(TotalReleases = sum(Releases), .groups = "drop") %>% 
-  ggplot(aes(Year, Month, fill = TotalReleases)) + 
+# Group by month and year, summarise the total release
+mojo_df %>% 
+group_by(Month, Year) %>% 
+summarize(TotalReleases = sum(Releases), .groups = "drop") %>% 
+ggplot(aes(Month, Year, fill = TotalReleases)) + 
   
   geom_tile(color = "white", 
             size = 0.1) + 
-  geom_text(aes(Year, Month, label = TotalReleases), # Add text to the tiles to show the total releases
-            color="grey", 
-            size=rel(3)) +
+  geom_fit_text(contrast = TRUE)+ #Add contrasting text labels
   
   scale_fill_viridis(name = NULL, # Define the color scale using the virdis color map
                      option="magma",
@@ -174,9 +174,9 @@ level <- c("December", "November","October","September","August","July","June","
                        nbin = 5)
                        ) +
   
-  scale_y_discrete(limits = level)+ # Define the y-axis scale with custom month levels
+  scale_x_discrete(limits = level)+ # Define the y-axis scale with custom month levels
   
-  scale_x_continuous(seq(2018, 2023, by = 1), # Define the x-axis scale with custom breaks
+  scale_y_reverse(seq(2018, 2023, by = 1), # Define the x-axis scale with custom breaks
 
                      name = NULL)+
   # Set the labels for the plot
@@ -191,6 +191,6 @@ level <- c("December", "November","October","September","August","July","June","
   theme(legend.position = "top",
         legend.justification='left',
         legend.direction='horizontal',
-        plot.title = element_text(face = "bold"),
-        axis.text =  element_text(face = "bold")) 
+        plot.title = element_text(face = "bold",size =14),
+        axis.text =  element_text(face = "bold",size=12)) 
   

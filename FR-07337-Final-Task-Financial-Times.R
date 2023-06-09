@@ -18,7 +18,7 @@ library(purrr)
 library(ggplot2)
 library(ggthemes)
 library(ggrepel)
-library(viridis) #Color map that has been deisgned to improve readability for readers with common forms of color blindness and/or color vision deficiency
+library(viridis) #Color map that has been designed to improve readability for readers with common forms of color blindness and/or color vision deficiency
 library(ggtext)
 
 
@@ -95,7 +95,7 @@ ggplot(mojo_df, aes(x = Date)) +
            stat = "identity", #Height of the bar equal to the value
            alpha = 0.7) + #Transparency of the bars
   
-  scale_fill_manual(values = c('Above $400mn'= '#88CCEE' , 'Below $400mn' = '#888888'),  # Manually define the color scale according to color-blind friendly
+  scale_fill_manual(values = c('Above $400mn'= '#88CCEE' , 'Below $400mn' = '#888888'),  # Manually define the color scale according to color-blind friendly guidelines
                     name = "Weekly Overall Gross\n (Labelled with #1 Release)") +
  
    geom_line(aes(y = AverageGross, #Add a dashed line to represent the 4-week average gross
@@ -163,7 +163,7 @@ level <- c("December", "November","October","September","August","July","June","
             color="grey", 
             size=rel(3)) +
   
-  scale_fill_viridis(name = NULL, # Define the color scale using the virdis color map that has been deisgned to improve readability for readers with common forms of color blindness and/or color vision deficiency
+  scale_fill_viridis(name = NULL, # Define the color scale using the virdis color map
                      option="magma",
                      direction = -1,
                      limits = c(0,700),

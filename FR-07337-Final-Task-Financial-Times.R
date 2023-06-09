@@ -157,7 +157,7 @@ level <- c("January","February","March","April","May","June","July","August","Se
 mojo_df %>% 
 group_by(Month, Year) %>% 
 summarize(TotalReleases = sum(Releases), .groups = "drop") %>% 
-ggplot(aes(Month, Year, fill = TotalReleases)) + 
+ggplot(aes(Month, Year, fill = TotalReleases, label = TotalReleases)) + 
   
   geom_tile(color = "white", 
             size = 0.1) + 
